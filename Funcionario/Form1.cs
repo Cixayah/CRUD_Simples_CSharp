@@ -1,5 +1,6 @@
-using MySql.Data.MySqlClient;
+ï»¿using MySql.Data.MySqlClient;
 using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Funcionario
@@ -40,11 +41,11 @@ namespace Funcionario
 
                     if (cadFuncionarios.CadastrarFuncionario())
                     {
-                        ShowMessageBox($"O funcionário {cadFuncionarios.Nome} foi cadastrado com sucesso!");
+                        ShowMessageBox($"O funcionÃ¡rio {cadFuncionarios.Nome} foi cadastrado com sucesso!");
                     }
                     else
                     {
-                        ShowMessageBox("Não foi possível cadastrar funcionário!");
+                        ShowMessageBox("NÃ£o foi possÃ­vel cadastrar funcionÃ¡rio!");
                     }
                 }
                 else
@@ -56,7 +57,7 @@ namespace Funcionario
             }
             catch (Exception ex)
             {
-                ShowMessageBox("Erro ao cadastrar funcionário: " + ex.Message);
+                ShowMessageBox("Erro ao cadastrar funcionÃ¡rio: " + ex.Message);
             }
         }
 
@@ -76,7 +77,7 @@ namespace Funcionario
                 if (!string.IsNullOrWhiteSpace(txtCpf.Text))
                 {
                     cadFuncionarios.Cpf = txtCpf.Text;
-                    MySqlDataReader reader = cadFuncionarios.LocalizarFuncionario();
+                    MySqlDataReader reader = cadFuncionarios.localizarFuncionario();
 
                     if (reader != null && reader.HasRows)
                     {
@@ -88,7 +89,7 @@ namespace Funcionario
                     }
                     else
                     {
-                        ShowMessageBox("Funcionário não localizado.");
+                        ShowMessageBox("FuncionÃ¡rio nÃ£o localizado.");
                         ClearFields();
                         txtCpf.Focus();
                     }
@@ -101,9 +102,10 @@ namespace Funcionario
             }
             catch (Exception ex)
             {
-                ShowMessageBox("Funcionário não encontrado: " + ex.Message);
+                ShowMessageBox($"Erro ao localizar funcionÃ¡rio: {ex.Message}");
             }
         }
+
 
         private void btnLimpar_Click(object sender, EventArgs e)
         {
@@ -125,27 +127,27 @@ namespace Funcionario
 
                     if (cadFuncionarios.AtualizarFuncionario())
                     {
-                        ShowMessageBox("Dados do funcionário foram atualizados com sucesso");
+                        ShowMessageBox("Dados do funcionÃ¡rio foram atualizados com sucesso");
                         ClearFields();
                         txtNome.Focus();
                     }
                     else
                     {
-                        ShowMessageBox("Não foi possível atualizar");
+                        ShowMessageBox("NÃ£o foi possÃ­vel atualizar");
                         ClearFields();
                         txtNome.Focus();
                     }
                 }
                 else
                 {
-                    ShowMessageBox("Localize o funcionário");
+                    ShowMessageBox("Localize o funcionÃ¡rio");
                     ClearFields();
                     txtNome.Focus();
                 }
             }
             catch (Exception ex)
             {
-                ShowMessageBox("Erro ao atualizar o funcionário" + ex.Message);
+                ShowMessageBox("Erro ao atualizar o funcionÃ¡rio" + ex.Message);
             }
         }
 
@@ -158,23 +160,23 @@ namespace Funcionario
                     cadFuncionarios.Id = int.Parse(lblId.Text);
                     if (cadFuncionarios.DeletarFuncionario())
                     {
-                        ShowMessageBox("O funcionário foi excluído com sucesso!");
+                        ShowMessageBox("O funcionÃ¡rio foi excluÃ­do com sucesso!");
                         ClearFields();
                     }
                     else
                     {
-                        ShowMessageBox("Não foi possível deletar funcionário");
+                        ShowMessageBox("NÃ£o foi possÃ­vel deletar funcionÃ¡rio");
                     }
                 }
                 else
                 {
-                    ShowMessageBox("Qual funcionário deseja excluir?");
+                    ShowMessageBox("Qual funcionÃ¡rio deseja excluir?");
                     ClearFields();
                 }
             }
             catch (Exception ex)
             {
-                ShowMessageBox("Erro ao deletar o funcionário: " + ex.Message);
+                ShowMessageBox("Erro ao deletar o funcionÃ¡rio: " + ex.Message);
             }
         }
     }

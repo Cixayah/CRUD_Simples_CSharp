@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Data;
 using System.Windows.Forms;
 
 namespace Funcionario
@@ -81,26 +82,28 @@ namespace Funcionario
             return ExecuteNonQuery(insertQuery);
         }
 
-        public MySqlDataReader LocalizarFuncionario()
+        public MySqlDataReader localizarFuncionario()
         {
-            string selectQuery = $"SELECT id, nome, email, cpf, endereco FROM funcionarios WHERE cpf = '{Cpf}'";
             try
             {
-                using (MySqlConnection connection = GetMySqlConnection())
-                {
-                    connection.Open();
-                    using (MySqlCommand sqlCommand = CreateMySqlCommand(selectQuery, connection))
-                    {
-                        return sqlCommand.ExecuteReader();
-                    }
-                }
+                MySqlConnection MySqlConnect = new MySqlConnection(conexaoBanco.connectDb);
+                MySqlConnect.Open();
+                string select = $"SELECT id, nome, email, cpf, endereco FROM funcionarios WHERE cpf = '{Cpf}'";
+                MySqlCommand comandoSql = MySqlConnect.CreateCommand();
+                comandoSql.CommandText = select;
+
+                MySqlDataReader reader = comandoSql.ExecuteReader();
+                return reader;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro no Banco de Dados - método LocalizarFuncionário: {ex.Message}");
+                MessageBox.Show("Erro no Banco de Dados - método localizarFuncionário");
                 return null;
             }
         }
+
+
+
 
         public bool AtualizarFuncionario()
         {

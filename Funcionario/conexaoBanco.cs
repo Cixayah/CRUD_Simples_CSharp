@@ -9,14 +9,14 @@ namespace Funcionario
     static class conexaoBanco
     {
         //dados do database
-        private const string servidor = "";
-        private const string bancoDados = "";
-        private const string port = "";
-        private const string usuario = "";
-        private const string senha = "";
+        private const string server = "127.0.0.1";
+        private const string database = "studying";
+        private const string port = "3306";
+        private const string user = "root";
+        private const string password = "";
 
-        //String de conexão com o database
-        static public string connectDb = $"server={servidor}; user={usuario}; database={bancoDados}; port={port};password={senha}";
+        // Database connection string
+        public static string ConnectionString = $"server={server}; user={user}; database={database}; port={port}; password={password}";
 
     }
 }
